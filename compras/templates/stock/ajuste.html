@@ -1,0 +1,3 @@
+{% extends "base.html" %}{% block titulo %}Cargar o ajustar stock{% endblock %}
+{% block contenido %}<h1>Carga inicial y ajustes de stock</h1><p class="nota">Indique las unidades a agregar o quitar y el motivo. Cada ajuste queda registrado.</p>
+<form method="post" class="form-card">{% csrf_token %}{% include "components/form_fields.html" %}<div class="acciones"><button>Aplicar ajuste</button><a href="{% url 'stock_lista' %}">Cancelar</a></div></form>{% endblock %}

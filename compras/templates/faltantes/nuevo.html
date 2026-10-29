@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block titulo %}Nuevo listado{% endblock %}
+{% block clase %}ancho{% endblock %}
+{% block contenido %}
+  <h1>Nuevo listado de modelos faltantes</h1>
+  <form method="post">
+    {% csrf_token %}{{ form.non_field_errors }}
+    {% for e in formset.non_form_errors %}<p class="mensaje error" role="alert">{{ e }}</p>{% endfor %}
+
+    <div class="tarjeta form-card">
+      <label for="{{ form.sucursal.id_for_label }}">Sucursal</label>
+      {{ form.sucursal }}{{ form.sucursal.errors }}
+      <p class="nota">La sucursal de Ventas se asigna automáticamente. La quincena se calcula según la fecha de envío.</p>
+    </div>
+
+    <div class="tarjeta table-card scroll">
+      {{ formset.management_form }}
+      <table class="tabla">
+        <thead><tr><th>Modelo</th><th>Cantidad</th><th>Motivo</th></tr></thead>
+        <tbody>
+          {% for f in formset %}
+          <tr{% if forloop.counter0 >= 3 and not f.modelo.value and not f.errors %} class="oculta"{% endif %}>
+            <td><label class="sr-only" for="{{ f.modelo.id_for_label }}">Modelo de motocicleta</label>{{ f.modelo }}{{ f.modelo.errors }}</td>
+            <td><label class="sr-only" for="{{ f.cantidad.id_for_label }}">Cantidad de unidades</label>{{ f.cantidad }}{{ f.cantidad.errors }}</td>
+            <td>{{ f.motivo }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="acciones">
+      <button type="button" id="agregar" class="secundario">Agregar modelo</button>
+      <button type="submit">Enviar listado</button>
+    </div>
+  </form>
+  <script>
+    document.getElementById('agregar').addEventListener('click', function () {
+      var fila = document.querySelector('tr.oculta');
+      if (fila) { fila.classList.remove('oculta'); }
+      if (!document.querySelector('tr.oculta')) { this.disabled = true; }
+    });
+  </script>
+{% endblock %}

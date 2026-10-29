@@ -1,0 +1,67 @@
+name: CI
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+jobs:
+  sqlite:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install -r requirements.txt
+      - run: python -m pip check
+      - run: python manage.py makemigrations --check --dry-run
+      - run: python manage.py test -v 2
+  postgres:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: kawa_ci
+          POSTGRES_USER: kawa_ci
+          POSTGRES_PASSWORD: ci-ephemeral-only
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U kawa_ci -d kawa_ci"
+          --health-interval 10s --health-timeout 5s --health-retries 5
+    env:
+      # Test-only disposable service; this is not a deployment credential.
+      DATABASE_URL: postgresql://kawa_ci:ci-ephemeral-only@localhost:5432/kawa_ci?sslmode=disable
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install -r requirements.txt
+      - run: python manage.py test --settings=config.ci_postgres -v 2
+  production-check:
+    runs-on: ubuntu-latest
+    env:
+      DJANGO_SETTINGS_MODULE: config.production
+      DJANGO_ALLOWED_HOSTS: kawa-example.onrender.com
+      DJANGO_CSRF_ORIGINS: https://kawa-example.onrender.com
+      # Configuration-only placeholder: no connection to this host is attempted.
+      DATABASE_URL: postgresql://example:example@localhost:5432/example?sslmode=require
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install -r requirements.txt
+      - name: Generate ephemeral verification key
+        run: python -c "import secrets,os; open(os.environ['GITHUB_ENV'],'a').write('DJANGO_SECRET_KEY='+secrets.token_urlsafe(64)+'\n')"
+      - run: python manage.py check --deploy --fail-level ERROR
+      - run: python manage.py collectstatic --noinput
+  docker-build:
+    needs: [sqlite, postgres, production-check]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t kawa-compras .

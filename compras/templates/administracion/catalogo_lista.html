@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block titulo %}Catálogo{% endblock %}
+{% block clase %}ancho{% endblock %}
+{% block contenido %}
+  <div class="page-heading heading-actions">
+    <div><p class="eyebrow">ADMINISTRACIÓN · CATÁLOGO</p><h1>{{ titulo }}</h1><p class="nota">Los registros asociados a operaciones existentes no se pueden borrar.</p></div>
+    <a class="boton" href="{% url 'admin_catalogo_nuevo' tipo %}">Agregar</a>
+  </div>
+  <nav class="tabs" aria-label="Secciones del catálogo">
+    <a class="{% if tipo == 'marcas' %}selected{% endif %}" href="{% url 'admin_catalogo_lista' 'marcas' %}">Marcas</a>
+    <a class="{% if tipo == 'modelos' %}selected{% endif %}" href="{% url 'admin_catalogo_lista' 'modelos' %}">Modelos</a>
+    <a class="{% if tipo == 'sucursales' %}selected{% endif %}" href="{% url 'admin_catalogo_lista' 'sucursales' %}">Sucursales</a>
+  </nav>
+  {% if registros %}
+    <div class="table-card scroll"><table class="tabla"><thead><tr><th>Nombre</th>{% if tipo == "modelos" %}<th>Marca</th>{% endif %}<th>Acciones</th></tr></thead>
+      <tbody>{% for r in registros %}<tr><td>{{ r.nombre }}</td>{% if tipo == "modelos" %}<td>{{ r.marca.nombre }}</td>{% endif %}
+        <td><div class="row-actions"><a href="{% url 'admin_catalogo_editar' tipo r.pk %}">Editar</a><form action="{% url 'admin_catalogo_eliminar' tipo r.pk %}" method="post">{% csrf_token %}<button class="link-button danger-link" type="submit">Borrar</button></form></div></td></tr>{% endfor %}</tbody>
+    </table></div>
+  {% else %}
+    <div class="empty-state"><span class="empty-icon">{% include "components/icon.html" with icon="box" %}</span><h2>No hay {{ titulo|lower }}</h2><p>Agregá el primer registro del catálogo.</p><a class="boton" href="{% url 'admin_catalogo_nuevo' tipo %}">Agregar</a></div>
+  {% endif %}
+{% endblock %}

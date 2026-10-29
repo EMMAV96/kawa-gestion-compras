@@ -1,0 +1,15 @@
+<header class="topbar">
+<div class="topbar-start">
+<button type="button" class="icon-button js-only" id="menu-toggle" aria-controls="app-sidebar" aria-expanded="true" aria-label="Contraer menú lateral" title="Menú">{% include "components/icon.html" with icon="menu" %}</button>
+<span class="topbar-title">Espacio de trabajo<small>KAWA S.R.L.</small>
+</span>
+</div>
+<div class="topbar-actions">{% include "components/theme_toggle.html" %}<div class="user-info">
+<span class="user-avatar" aria-hidden="true">{{ user.username|first|upper }}</span>
+<div class="user-details">
+<span class="user-name">{{ user.get_full_name|default:user.username }}</span>
+<span class="role-chip">{{ rol_usuario }}</span>
+</div>
+</div>
+</div>
+</header>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gestión de catálogo · Compras Kawa</title>
+  <link rel="stylesheet" href="wireframes.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="topbar"><a class="brand" href="index.html">Compras Kawa · Administración</a><nav aria-label="Navegación principal"><a href="index.html">Wireframes</a><a href="admin-dashboard.html">Dashboard</a><a href="usuarios.html">Usuarios</a><a href="catalogo.html" aria-current="page">Catálogo</a></nav></header>
+  <main class="container" id="contenido">
+    <div class="page-heading"><h1>Gestión de catálogo</h1><a class="button" href="#nuevo">Agregar registro</a></div>
+    <nav class="panel" aria-label="Secciones del catálogo">
+      <a href="#marcas">Marcas</a> · <a href="#modelos">Modelos</a> · <a href="#sucursales">Sucursales</a>
+    </nav>
+    <section class="panel" id="marcas">
+      <h2>Marcas</h2>
+      <div class="table-wrap"><table><thead><tr><th>Nombre</th><th>Acciones</th></tr></thead><tbody>
+        <tr><td>Marca X</td><td><a href="#nuevo">Editar</a> · <a href="#uso">Borrar</a></td></tr>
+        <tr><td>Marca Y</td><td><a href="#nuevo">Editar</a> · <a href="#uso">Borrar</a></td></tr>
+      </tbody></table></div>
+    </section>
+    <section class="panel" id="modelos">
+      <h2>Modelos</h2>
+      <div class="table-wrap"><table><thead><tr><th>Nombre</th><th>Marca</th><th>Acciones</th></tr></thead><tbody>
+        <tr><td>Modelo A</td><td>Marca X</td><td><a href="#nuevo">Editar</a> · <a href="#uso">Borrar</a></td></tr>
+        <tr><td>Modelo B</td><td>Marca Y</td><td><a href="#nuevo">Editar</a> · <a href="#uso">Borrar</a></td></tr>
+        <tr><td>Modelo C</td><td>Marca X</td><td><a href="#nuevo">Editar</a> · <a href="#uso">Borrar</a></td></tr>
+      </tbody></table></div>
+    </section>
+    <section class="panel" id="sucursales">
+      <h2>Sucursales</h2>
+      <div class="table-wrap"><table><thead><tr><th>Nombre</th><th>Acciones</th></tr></thead><tbody>
+        <tr><td>Rosario</td><td><a href="#nuevo">Editar</a> · <a href="#uso">Borrar</a></td></tr>
+        <tr><td>Córdoba</td><td><a href="#nuevo">Editar</a> · <a href="#uso">Borrar</a></td></tr>
+        <tr><td>Mendoza</td><td><a href="#nuevo">Editar</a> · <a href="#uso">Borrar</a></td></tr>
+      </tbody></table></div>
+    </section>
+    <section class="card" id="nuevo">
+      <h2>Agregar o editar registro</h2>
+      <div class="field"><label for="tipo">Tipo de registro</label><select id="tipo"><option>Marca</option><option>Modelo</option><option>Sucursal</option></select></div>
+      <div class="field"><label for="nombre">Nombre</label><input id="nombre" value="Marca nueva"></div>
+      <div class="field"><label for="marca">Marca del modelo</label><select id="marca"><option>Elegir marca</option><option>Marca X</option><option>Marca Y</option></select></div>
+      <button type="button">Guardar</button>
+      <p class="muted">Este wireframe no guarda cambios. No se pueden borrar registros vinculados a operaciones.</p>
+    </section>
+    <p class="notice" id="uso">Los registros en uso se conservan para mantener el historial.</p>
+  </main>
+</body>
+</html>

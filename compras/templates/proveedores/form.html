@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block titulo %}{{ titulo }}{% endblock %}
+{% block contenido %}
+  <h1>{{ titulo }}</h1>
+  <form class="tarjeta form-card" method="post">
+    {% csrf_token %}
+    <label for="{{ form.razon_social.id_for_label }}">Razón social</label>
+    {{ form.razon_social }}{{ form.razon_social.errors }}
+
+    <label for="{{ form.email.id_for_label }}">Email</label>
+    {{ form.email }}{{ form.email.errors }}
+
+    <label class="ck separado">{{ form.es_fijo }} Proveedor fijo</label>
+
+    <fieldset class="checks">
+      <legend>Marcas que abastece</legend>
+      {{ form.marcas }}
+    </fieldset>
+    {{ form.marcas.errors }}
+
+    <div class="acciones">
+      <a class="boton secundario" href="{% url 'proveedor_lista' %}">Cancelar</a>
+      <button type="submit">Guardar proveedor</button>
+    </div>
+  </form>
+{% endblock %}

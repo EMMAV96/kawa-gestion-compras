@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block titulo %}Operaciones{% endblock %}
+{% block clase %}ancho{% endblock %}
+{% block contenido %}
+  <div class="page-heading"><div><p class="eyebrow">ADMINISTRACIÓN · CONSULTA</p><h1>Operaciones</h1><p class="nota">Vista de solo lectura de todos los listados y solicitudes.</p></div></div>
+  <section class="section-block">
+    <div class="section-heading"><h2>Listados de faltantes</h2><span class="count-pill">{{ listados|length }}</span></div>
+    {% if listados %}
+      <div class="table-card scroll"><table class="tabla"><thead><tr><th>Fecha</th><th>Sucursal</th><th>Usuario</th><th>Quincena</th><th>Items</th><th>Estado</th></tr></thead><tbody>
+        {% for l in listados %}<tr><td>{{ l.fecha|date:"d/m/Y" }}</td><td>{{ l.sucursal.nombre }}</td><td>{{ l.usuario.username }}</td><td>{{ l.quincena }}</td><td>{{ l.items.count }}</td><td><span class="badge badge-pending">{{ l.get_estado_display }}</span></td></tr>{% endfor %}
+      </tbody></table></div>
+    {% else %}<p class="empty-inline">Todavía no hay listados cargados.</p>{% endif %}
+  </section>
+  <section class="section-block">
+    <div class="section-heading"><h2>Solicitudes de cotización</h2><span class="count-pill">{{ solicitudes|length }}</span></div>
+    {% if solicitudes %}
+      <div class="table-card scroll"><table class="tabla"><thead><tr><th>N.º</th><th>Fecha</th><th>Proveedor</th><th>Medio</th><th>Modelos</th><th>Estado</th></tr></thead><tbody>
+        {% for s in solicitudes %}<tr><td>{{ s.pk }}</td><td>{{ s.fecha|date:"d/m/Y" }}</td><td>{{ s.proveedor_nombre }}</td><td>{{ s.get_medio_display }}</td><td>{{ s.detalles.count }}</td><td><span class="badge badge-sent">{{ s.get_estado_display }}</span></td></tr>{% endfor %}
+      </tbody></table></div>
+    {% else %}<p class="empty-inline">Todavía no hay solicitudes generadas.</p>{% endif %}
+  </section>
+{% endblock %}

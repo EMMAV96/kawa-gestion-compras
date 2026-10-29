@@ -1,0 +1,23 @@
+{% load static %}<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>{% block titulo %}Compras Kawa{% endblock %} · KAWA</title>
+<script src="{% static 'compras/theme-init.js' %}">
+</script>
+<link rel="stylesheet" href="{% static 'compras/app.css' %}">
+<script src="{% static 'compras/app.js' %}" defer>
+</script>
+</head>
+<body>
+{% include "components/icons.html" %}{% if user.is_authenticated %}<a class="skip-link" href="#main-content">Saltar al contenido</a>
+<div class="app-layout">{% include "components/sidebar.html" %}<button type="button" class="sidebar-backdrop" data-menu-close aria-label="Cerrar menú" tabindex="-1" hidden>
+</button>
+<div class="app-main" id="app-main">{% include "components/navbar.html" %}<main id="main-content" tabindex="-1" class="contenido {% block clase %}{% endblock %}">{% include "components/messages.html" %}{% block contenido %}{% endblock %}</main>
+<footer class="app-footer">KAWA S.R.L. <span>Gestión de operaciones</span>
+</footer>
+</div>
+</div>{% else %}{% block acceso %}{% endblock %}{% endif %}</body>
+</html>

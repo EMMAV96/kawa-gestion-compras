@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block titulo %}Proveedores{% endblock %}
+{% block clase %}ancho{% endblock %}
+{% block contenido %}
+  <div class="titulo-fila">
+    <h1>Proveedores</h1>
+    <a class="boton" href="{% url 'proveedor_nuevo' %}">Nuevo proveedor</a>
+  </div>
+  {% if not proveedores %}
+    <div class="empty-state"><span class="empty-icon">{% include "components/icon.html" with icon="providers" %}</span><h2>Todavía no hay proveedores</h2><p>Registrá el primero para poder gestionar cotizaciones.</p><a class="boton" href="{% url 'proveedor_nuevo' %}">Nuevo proveedor</a></div>
+  {% else %}
+    <div class="table-card scroll">
+      <table class="tabla">
+        <thead><tr><th>Razón social</th><th>Tipo</th><th>Marcas</th><th>Email</th><th>Estado</th><th>Acciones</th></tr></thead>
+        <tbody>
+          {% for p in proveedores %}
+          <tr>
+            <td>{{ p.razon_social }}</td>
+            <td><span class="tag">{% if p.es_fijo %}Fijo{% else %}No fijo{% endif %}</span></td>
+            <td>{% for m in p.marcas.all %}{{ m.nombre }}{% if not forloop.last %}, {% endif %}{% endfor %}</td>
+            <td>{{ p.email }}</td>
+            <td><span class="badge {% if p.activo %}badge-active{% else %}badge-inactive{% endif %}">{% if p.activo %}Activo{% else %}De baja{% endif %}</span></td>
+            <td class="acciones-fila">
+              <a href="{% url 'proveedor_editar' p.pk %}">Editar</a>
+              {% if p.activo %}
+              <form action="{% url 'proveedor_baja' p.pk %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="secundario chico">Dar de baja</button>
+              </form>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+{% endblock %}

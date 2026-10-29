@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% block titulo %}Compras{% endblock %}{% block clase %}ancho{% endblock %}{% block contenido %}
+<h1>Operaciones de compra</h1>{% if "Compras" in roles or "Administrador" in roles %}<p><a class="boton" href="{% url 'compra_nueva' %}">Nueva compra</a></p>{% endif %}
+<form method="get" class="form-card">{% include "components/form_fields.html" %}<button>Filtrar</button></form>
+<div class="table-card scroll"><table class="tabla"><thead><tr><th>Compra</th><th>Creada</th><th>Responsable</th><th>Proveedor</th><th>Procedimiento</th><th>Total ARS</th><th>Estado</th></tr></thead><tbody>
+{% for c in compras %}<tr><td><a href="{% url 'compra_detalle' c.pk %}">{{ c.pk }}</a></td><td>{{ c.creada|date:"d/m/Y H:i" }}</td><td>{{ c.usuario }}</td><td>{{ c.proveedor_nombre }}</td><td>{{ c.get_procedimiento_display }}</td><td>{{ c.total|default_if_none:"Pendiente de oferta" }}</td><td><span class="badge" data-state="{{ c.estado }}">{{ c.get_estado_display }}</span></td></tr>{% empty %}<tr><td colspan="7">No hay operaciones para esta consulta.</td></tr>{% endfor %}</tbody></table></div>{% endblock %}

@@ -1,0 +1,3 @@
+{% extends "base.html" %}{% block titulo %}Venta {{ venta.pk }}{% endblock %}
+{% block contenido %}<h1>Venta {{ venta.pk }}</h1><p>{{ venta.fecha|date:"d/m/Y" }} &middot; {{ venta.sucursal }} &middot; {{ venta.usuario }}</p>
+<div class="table-card scroll"><table class="tabla"><thead><tr><th>Modelo</th><th>Cantidad</th></tr></thead><tbody>{% for detalle in detalles %}<tr><td>{{ detalle.modelo }}</td><td>{{ detalle.cantidad }}</td></tr>{% endfor %}</tbody></table></div><p><a href="{% url 'venta_lista' %}">Volver a ventas</a></p>{% endblock %}

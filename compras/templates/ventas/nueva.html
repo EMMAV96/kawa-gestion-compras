@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block titulo %}Registrar venta{% endblock %}
+{% block contenido %}<h1>Registrar venta</h1><p>Sucursal: <strong>{{ sucursal }}</strong></p>
+<form method="post" class="form-card">{% csrf_token %}{% include "components/form_fields.html" %}{{ formset.management_form }}{{ formset.non_form_errors }}
+<div class="table-card scroll"><table class="tabla"><thead><tr><th>Modelo</th><th>Cantidad</th></tr></thead><tbody>
+{% for fila in formset %}<tr><td><label class="sr-only" for="{{ fila.modelo.id_for_label }}">Modelo de motocicleta</label>{{ fila.modelo }}{{ fila.modelo.errors }}{{ fila.non_field_errors }}</td><td><label class="sr-only" for="{{ fila.cantidad.id_for_label }}">Cantidad de unidades</label>{{ fila.cantidad }}{{ fila.cantidad.errors }}</td></tr>{% endfor %}
+</tbody></table></div><p class="nota">Complete una o varias filas. Las cantidades repetidas del mismo modelo se suman.</p>
+<div class="acciones"><button>Registrar venta</button><a href="{% url 'venta_lista' %}">Cancelar</a></div></form>{% endblock %}

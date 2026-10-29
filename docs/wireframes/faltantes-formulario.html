@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nuevo listado de faltantes · Compras Kawa</title>
+  <link rel="stylesheet" href="wireframes.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="topbar"><a class="brand" href="index.html">Compras Kawa</a><nav aria-label="Navegación principal"><a href="index.html">Wireframes</a><a href="panel.html">Panel</a><a href="faltantes-formulario.html" aria-current="page">Modelos faltantes</a><a href="solicitud-cotizacion.html">Cotizaciones</a></nav></header>
+  <main class="container" id="contenido">
+    <h1>Nuevo listado de modelos faltantes</h1>
+    <form action="panel.html" method="get">
+      <section class="card"><div class="field"><label for="sucursal">Sucursal</label><select id="sucursal" name="sucursal"><option>Centro</option><option>Norte</option><option>Sur</option></select></div><p class="muted">La quincena se asigna según la fecha de envío.</p></section>
+      <div class="table-wrap">
+        <table><caption class="muted" style="text-align:left;padding:10px">Modelos requeridos · datos de ejemplo</caption><thead><tr><th>Modelo</th><th>Cantidad</th><th>Motivo</th></tr></thead>
+          <tbody>
+            <tr><td><label class="sr-only" for="modelo1">Modelo de la primera fila</label><select id="modelo1"><option>Galaxy A55 128 GB</option><option>Moto G85 256 GB</option><option>Redmi Note 13 256 GB</option></select></td><td><label class="sr-only" for="cantidad1">Cantidad para Galaxy A55</label><input id="cantidad1" type="number" min="1" value="4"></td><td><label class="sr-only" for="motivo1">Motivo para Galaxy A55</label><input id="motivo1" value="Sin stock"></td></tr>
+            <tr><td><label class="sr-only" for="modelo2">Modelo de la segunda fila</label><select id="modelo2"><option>Moto G85 256 GB</option><option>Galaxy A55 128 GB</option><option>Redmi Note 13 256 GB</option></select></td><td><label class="sr-only" for="cantidad2">Cantidad para Moto G85</label><input id="cantidad2" type="number" min="1" value="2"></td><td><label class="sr-only" for="motivo2">Motivo para Moto G85</label><input id="motivo2" value="Reposición"></td></tr>
+            <tr><td><label class="sr-only" for="modelo3">Modelo de la tercera fila</label><select id="modelo3"><option>Seleccionar modelo</option><option>Redmi Note 13 256 GB</option></select></td><td><label class="sr-only" for="cantidad3">Cantidad</label><input id="cantidad3" type="number" min="1" placeholder="0"></td><td><label class="sr-only" for="motivo3">Motivo</label><input id="motivo3" placeholder="Opcional"></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="actions"><button type="button" class="secondary">Agregar modelo</button><button type="submit">Enviar listado</button></div>
+    </form>
+  </main>
+</body>
+</html>

@@ -1,0 +1,20 @@
+# Free web service only. No resources are created until explicitly applied.
+services:
+  - type: web
+    name: kawa-mvp
+    runtime: python
+    plan: free
+    region: oregon
+    autoDeployTrigger: "off"
+    buildCommand: bash build.sh
+    startCommand: sh start.sh
+    healthCheckPath: /login/
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: config.production
+      - key: DJANGO_SECRET_KEY
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: KAWA_PUBLIC_DEMO
+        value: "false"

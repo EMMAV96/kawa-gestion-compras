@@ -1,0 +1,106 @@
+:root {
+  color-scheme: light;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #252525;
+  background: #ededed;
+  font-synthesis: none;
+  line-height: 1.5;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #ededed;
+}
+
+a { color: #222; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: #555; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible,
+textarea:focus-visible { outline: 3px solid #555; outline-offset: 2px; }
+
+.topbar {
+  background: #d3d3d3;
+  border-bottom: 2px solid #999;
+  padding: 14px max(20px, calc((100% - 1120px) / 2));
+}
+
+.brand { display: block; font-size: 1.15rem; font-weight: 700; }
+.topbar nav { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 10px; }
+.topbar nav a { font-size: .95rem; }
+
+.container { width: min(1120px, calc(100% - 32px)); margin: 28px auto 48px; }
+.narrow { max-width: 520px; }
+.page-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+h1 { margin: 0 0 20px; font-size: clamp(1.55rem, 3vw, 2rem); }
+h2 { margin: 0 0 12px; font-size: 1.15rem; }
+p { margin: 8px 0 16px; }
+.muted { color: #555; }
+.card, .panel {
+  border: 1px solid #aaa;
+  background: #f8f8f8;
+  padding: 20px;
+  margin: 0 0 18px;
+}
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 16px; }
+.card-grid .card { margin: 0; }
+.card-grid h2 a { text-decoration: none; }
+.button, button {
+  display: inline-block;
+  min-height: 40px;
+  border: 1px solid #555;
+  background: #d6d6d6;
+  color: #222;
+  padding: 9px 14px;
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+.button.secondary, button.secondary { background: #f8f8f8; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+.field { margin: 0 0 16px; }
+label, legend { display: block; font-weight: 700; margin-bottom: 5px; }
+input:not([type="checkbox"]), select, textarea {
+  display: block;
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid #888;
+  background: #fff;
+  padding: 9px;
+  color: #222;
+  font: inherit;
+}
+textarea { min-height: 86px; resize: vertical; }
+input[type="checkbox"] { width: 18px; height: 18px; vertical-align: middle; }
+.check { display: flex; align-items: center; gap: 8px; margin: 8px 0; }
+.check label { margin: 0; font-weight: 400; }
+fieldset { min-width: 0; border: 1px solid #aaa; padding: 14px; margin: 0 0 16px; }
+legend { padding: 0 5px; }
+.table-wrap { overflow-x: auto; border: 1px solid #aaa; }
+table { width: 100%; border-collapse: collapse; background: #f8f8f8; }
+th, td { padding: 10px 12px; border-bottom: 1px solid #bbb; text-align: left; vertical-align: top; }
+th { background: #d8d8d8; white-space: nowrap; }
+tr:last-child td { border-bottom: 0; }
+.tag { display: inline-block; padding: 2px 8px; border: 1px solid #888; background: #e5e5e5; }
+.metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 18px; }
+.metric { border: 1px solid #999; background: #e1e1e1; padding: 16px; }
+.metric strong { display: block; font-size: 1.6rem; }
+.notice { border-left: 4px solid #777; background: #e3e3e3; padding: 12px 14px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.skip-link { position: absolute; left: -9999px; top: 8px; padding: 10px; background: #fff; z-index: 1; }
+.skip-link:focus { left: 8px; }
+.login-mark { text-align: center; padding: 24px 12px 8px; }
+.login-mark h1 { margin-bottom: 4px; }
+.login-mark p { margin-top: 0; }
+.footer-note { margin-top: 26px; padding-top: 12px; border-top: 1px solid #bbb; color: #555; font-size: .9rem; }
+
+@media (max-width: 600px) {
+  .topbar { padding: 12px 16px; }
+  .topbar nav { gap: 8px 14px; }
+  .container { width: calc(100% - 24px); margin-top: 20px; }
+  .card, .panel { padding: 15px; }
+  .page-heading { align-items: flex-start; flex-direction: column; gap: 0; }
+  th, td { padding: 8px; }
+}

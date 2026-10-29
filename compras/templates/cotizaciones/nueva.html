@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block titulo %}Nueva solicitud{% endblock %}
+{% block clase %}ancho{% endblock %}
+{% block contenido %}
+  <h1>Nueva solicitud de cotización</h1>
+  <form method="get" class="form-card"><label for="periodo">Filtrar pendientes por quincena (fecha de referencia)</label><input id="periodo" type="date" name="quincena" value="{{ form.quincena.value|default:'' }}">{{ filtro.quincena.errors }}<button>Actualizar pendientes</button></form>
+  <p class="nota">Sin quincena se incluyen todos los pendientes. Todos los proveedores elegidos deben abastecer todas las marcas seleccionadas.</p>
+  <form method="post">
+    {{ form.clave_operacion }}{{ form.clave_operacion.errors }}
+    <input type="hidden" name="quincena" value="{{ form.quincena.value|default:'' }}">{{ form.quincena.errors }}
+    {% csrf_token %}
+    {% for e in form.non_field_errors %}<p class="mensaje error" role="alert">{{ e }}</p>{% endfor %}
+
+    <section class="tarjeta">
+      <h2>Modelos faltantes pendientes</h2>
+      {% if not lineas %}
+        <p class="vacio">No hay faltantes pendientes de cotizar. Las sucursales deben enviar sus listados primero.</p>
+      {% else %}
+        <div class="scroll">
+          <table class="tabla">
+            <thead><tr><th></th><th>Modelo</th><th>Marca</th><th>Cantidad total</th></tr></thead>
+            <tbody>
+              {% for l in lineas %}
+              <tr>
+                <td><input type="checkbox" name="modelos" value="{{ l.modelo_id }}"
+                           aria-label="Seleccionar {{ l.modelo__nombre }}"
+                           {% if l.modelo_id|stringformat:"s" in seleccionados %}checked{% endif %}></td>
+                <td>{{ l.modelo__nombre }}</td>
+                <td>{{ l.modelo__marca__nombre }}</td>
+                <td>{{ l.total }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% endif %}
+      {{ form.modelos.errors }}
+    </section>
+
+    <div class="dos-columnas">
+      <fieldset class="tarjeta checks">
+        <legend>Proveedores</legend>
+        {{ form.proveedores }}{{ form.proveedores.errors }}
+      </fieldset>
+      <div class="tarjeta">
+        <label for="{{ form.medio.id_for_label }}">Medio de envío</label>
+        {{ form.medio }}
+        <p class="nota">Por ahora la solicitud se registra en el sistema; el envío real no está incluido.</p>
+      </div>
+    </div>
+
+    <div class="acciones">
+      <a class="boton secundario" href="{% url 'cotizacion_lista' %}">Cancelar</a>
+      <button type="submit">Generar solicitud</button>
+    </div>
+  </form>
+{% endblock %}

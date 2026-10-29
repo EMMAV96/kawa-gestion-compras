@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block titulo %}{{ titulo }}{% endblock %}
+{% block contenido %}
+  <div class="page-heading"><div><p class="eyebrow">ADMINISTRACIÓN · USUARIOS</p><h1>{{ titulo }}</h1><p class="nota">Cada usuario debe tener un único rol.</p></div></div>
+  <form class="form-card" method="post">
+    {% csrf_token %}
+    {% include "components/form_fields.html" %}
+    <p class="form-hint">Al crear una cuenta, indicá una contraseña inicial. Para cambiarla más adelante usá “Restablecer contraseña”.</p>
+    <div class="form-actions"><a class="boton boton-light" href="{% url 'admin_usuario_lista' %}">Cancelar</a><button type="submit">Guardar usuario</button></div>
+  </form>
+{% endblock %}

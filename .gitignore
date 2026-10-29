@@ -1,0 +1,49 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+credentials*.json
+service-account*.json
+.aws/
+# Python and tools
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage*
+htmlcov/
+# Local databases, journals, dumps and backups
+*.sqlite
+*.sqlite3
+*.sqlite-*
+*.sqlite3-*
+*.db
+*.db-*
+*.sql
+*.dump
+*.backup
+*.bak
+backups/
+# Build/runtime artifacts
+staticfiles/
+media/
+*.log
+*.tmp
+*.temp
+*.swp
+*~
+dist/
+build/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

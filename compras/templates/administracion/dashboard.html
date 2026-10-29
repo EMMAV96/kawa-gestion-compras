@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block titulo %}Administración{% endblock %}
+{% block contenido %}
+  <div class="page-heading">
+    <div><p class="eyebrow">ADMINISTRACIÓN</p><h1>Resumen general</h1><p class="nota">Indicadores de actividad de todas las sucursales.</p></div>
+  </div>
+  <section class="stats-grid" aria-label="Indicadores">
+    <a class="stat-card" href="{% url 'admin_operaciones' %}"><span>Listados de faltantes</span><strong>{{ cantidad_listados }}</strong><small>En todas las sucursales</small></a>
+    <a class="stat-card" href="{% url 'admin_operaciones' %}"><span>Faltantes pendientes</span><strong>{{ faltantes_pendientes }}</strong><small>Sin cotización generada</small></a>
+    <a class="stat-card" href="{% url 'admin_operaciones' %}"><span>Solicitudes</span><strong>{{ cantidad_solicitudes }}</strong><small>Solicitudes de cotización</small></a>
+    <a class="stat-card" href="{% url 'proveedor_lista' %}"><span>Proveedores activos</span><strong>{{ proveedores_activos }}</strong><small>Habilitados para cotizar</small></a>
+    <a class="stat-card" href="{% url 'admin_usuario_lista' %}"><span>Usuarios</span><strong>{{ cantidad_usuarios }}</strong><small>Cuentas registradas</small></a>
+  </section>
+  <section class="section-block">
+    <div class="section-heading"><h2>Herramientas de administración</h2></div>
+    <div class="quick-grid">
+      <a class="quick-card" href="{% url 'admin_usuario_lista' %}"><span class="quick-icon">{% include "components/icon.html" with icon="user" %}</span><span><strong>Gestionar usuarios</strong><small>Crear cuentas, asignar roles y restablecer claves</small></span><b aria-hidden="true">→</b></a>
+      <a class="quick-card" href="{% url 'admin_catalogo_lista' 'marcas' %}"><span class="quick-icon">{% include "components/icon.html" with icon="box" %}</span><span><strong>Gestionar catálogo</strong><small>Marcas, modelos y sucursales</small></span><b aria-hidden="true">→</b></a>
+      <a class="quick-card" href="{% url 'admin_operaciones' %}"><span class="quick-icon">{% include "components/icon.html" with icon="orders" %}</span><span><strong>Ver operaciones</strong><small>Listados y cotizaciones en modo consulta</small></span><b aria-hidden="true">→</b></a>
+    </div>
+  </section>
+{% endblock %}

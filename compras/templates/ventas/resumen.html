@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% block titulo %}Resumen quincenal{% endblock %}
+{% block contenido %}<h1>Resumen quincenal de ventas</h1><p class="nota">Primera quincena: días 1 a 15. Segunda: desde el 16 hasta fin de mes.</p>
+<form method="get" class="form-card">{% include "components/form_fields.html" %}<button>Consultar</button></form><h2>{{ periodo }}</h2>
+<div class="table-card scroll"><table class="tabla"><thead><tr><th>Sucursal</th><th>Modelo</th><th>Marca</th><th>Unidades vendidas</th></tr></thead><tbody>
+{% for linea in lineas %}<tr><td>{{ linea.venta__sucursal__nombre }}</td><td>{{ linea.modelo__nombre }}</td><td>{{ linea.modelo__marca__nombre }}</td><td>{{ linea.total }}</td></tr>{% empty %}<tr><td colspan="4">No hay ventas para esta consulta.</td></tr>{% endfor %}</tbody></table></div>{% endblock %}

@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Formulario de proveedor · Compras Kawa</title>
+  <link rel="stylesheet" href="wireframes.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="topbar"><a class="brand" href="index.html">Compras Kawa</a><nav aria-label="Navegación principal"><a href="index.html">Wireframes</a><a href="panel.html">Panel</a><a href="proveedores.html">Proveedores</a><a href="solicitud-cotizacion.html">Cotizaciones</a></nav></header>
+  <main class="container narrow" id="contenido">
+    <h1>Nuevo proveedor</h1>
+    <form class="card" action="proveedores.html" method="get">
+      <div class="field"><label for="razon-social">Razón social</label><input id="razon-social" name="razon-social" value="TecnoSur S.A." required></div>
+      <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" value="ventas@tecnosur.example" required></div>
+      <div class="check"><input id="fijo" name="fijo" type="checkbox" checked><label for="fijo">Proveedor fijo</label></div>
+      <fieldset><legend>Marcas que abastece</legend>
+        <div class="check"><input id="samsung" type="checkbox" checked><label for="samsung">Samsung</label></div>
+        <div class="check"><input id="motorola" type="checkbox" checked><label for="motorola">Motorola</label></div>
+        <div class="check"><input id="xiaomi" type="checkbox"><label for="xiaomi">Xiaomi</label></div>
+      </fieldset>
+      <div class="actions"><a class="button secondary" href="proveedores.html">Cancelar</a><button type="submit">Guardar proveedor</button></div>
+    </form>
+  </main>
+</body>
+</html>

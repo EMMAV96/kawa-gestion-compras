@@ -1,0 +1,72 @@
+<aside class="sidebar" id="app-sidebar" aria-label="Navegación principal">
+<div class="sidebar-heading">
+<a class="brand" href="{% url 'panel' %}">
+<span class="brand-mark">K</span>
+<span class="brand-label">KAWA<span class="brand-caption">Gestión empresarial</span>
+</span>
+</a>
+<button type="button" class="icon-button sidebar-close js-only" data-menu-close aria-label="Cerrar menú">{% include "components/icon.html" with icon="close" %}</button>
+</div>
+<nav class="menu" aria-label="Módulos del sistema">{% with current=request.resolver_match.url_name %}
+<details class="nav-group" data-nav-group id="nav-inicio" {% if current in "panel" %}open data-active-group{% endif %}>
+<summary title="Inicio">{% include "components/icon.html" with icon="home" %}<span class="nav-section-label">Inicio</span>{% include "components/icon.html" with icon="chevron" icon_class="nav-chevron" %}</summary>
+<div class="nav-group-links">
+{% include "components/nav_link.html" with route="panel" label="Panel principal" aliases="" %}</div>
+</details>
+{% if "Ventas" in roles or "Compras" in roles or "Finanzas" in roles or "Administrador" in roles %}
+<details class="nav-group" data-nav-group id="nav-ventas" {% if current in "venta_nueva venta_lista venta_detalle venta_resumen" %}open data-active-group{% endif %}>
+<summary title="Ventas">{% include "components/icon.html" with icon="sales" %}<span class="nav-section-label">Ventas</span>{% include "components/icon.html" with icon="chevron" icon_class="nav-chevron" %}</summary>
+<div class="nav-group-links">
+{% if "Ventas" in roles %}{% include "components/nav_link.html" with route="venta_nueva" label="Registrar venta" aliases="" %}{% endif %}{% include "components/nav_link.html" with route="venta_lista" label="Consultar ventas" aliases="venta_detalle" %}{% include "components/nav_link.html" with route="venta_resumen" label="Resumen quincenal" aliases="" %}</div>
+</details>
+{% endif %}
+{% if "Ventas" in roles or "Compras" in roles or "Finanzas" in roles or "Administrador" in roles %}
+<details class="nav-group" data-nav-group id="nav-inventario" {% if current in "stock_lista stock_ajuste" %}open data-active-group{% endif %}>
+<summary title="Inventario">{% include "components/icon.html" with icon="box" %}<span class="nav-section-label">Inventario</span>{% include "components/icon.html" with icon="chevron" icon_class="nav-chevron" %}</summary>
+<div class="nav-group-links">
+{% include "components/nav_link.html" with route="stock_lista" label="Consultar stock" aliases="" %}{% if "Administrador" in roles %}{% include "components/nav_link.html" with route="stock_ajuste" label="Cargar o ajustar stock" aliases="" %}{% endif %}</div>
+</details>
+{% endif %}
+{% if "Ventas" in roles or "Compras" in roles or "Administrador" in roles %}
+<details class="nav-group" data-nav-group id="nav-pedidos" {% if current in "faltantes_nuevo faltantes_lista faltantes_detalle faltantes_consolidado" %}open data-active-group{% endif %}>
+<summary title="Pedidos">{% include "components/icon.html" with icon="orders" %}<span class="nav-section-label">Pedidos</span>{% include "components/icon.html" with icon="chevron" icon_class="nav-chevron" %}</summary>
+<div class="nav-group-links">
+{% if "Ventas" in roles or "Administrador" in roles %}{% include "components/nav_link.html" with route="faltantes_nuevo" label="Registrar faltantes" aliases="" %}{% endif %}{% include "components/nav_link.html" with route="faltantes_lista" label="Consultar pedidos" aliases="faltantes_detalle" %}{% include "components/nav_link.html" with route="faltantes_consolidado" label="Consolidación quincenal" aliases="" %}</div>
+</details>
+{% endif %}
+{% if "Compras" in roles or "Administrador" in roles %}
+<details class="nav-group" data-nav-group id="nav-proveedores" {% if current in "proveedor_lista proveedor_nuevo proveedor_editar cotizacion_lista cotizacion_nueva solicitud_detalle cotizacion_recibida cotizacion_detalle cotizacion_comparar" %}open data-active-group{% endif %}>
+<summary title="Proveedores y cotizaciones">{% include "components/icon.html" with icon="providers" %}<span class="nav-section-label">Proveedores y cotizaciones</span>{% include "components/icon.html" with icon="chevron" icon_class="nav-chevron" %}</summary>
+<div class="nav-group-links">
+{% include "components/nav_link.html" with route="proveedor_lista" label="Proveedores" aliases="proveedor_nuevo proveedor_editar" %}{% include "components/nav_link.html" with route="cotizacion_lista" label="Solicitudes de cotización" aliases="cotizacion_nueva solicitud_detalle cotizacion_recibida" %}{% include "components/nav_link.html" with route="cotizacion_lista" label="Cotizaciones recibidas" aliases="cotizacion_detalle" anchor="cotizaciones-recibidas" %}{% include "components/nav_link.html" with route="cotizacion_comparar" label="Comparar cotizaciones" aliases="" %}</div>
+</details>
+{% endif %}
+{% if "Compras" in roles or "Finanzas" in roles or "Administrador" in roles %}
+<details class="nav-group" data-nav-group id="nav-compras" {% if current in "compra_nueva compra_lista compra_detalle documento_compra" %}open data-active-group{% endif %}>
+<summary title="Compras">{% include "components/icon.html" with icon="cart" %}<span class="nav-section-label">Compras</span>{% include "components/icon.html" with icon="chevron" icon_class="nav-chevron" %}</summary>
+<div class="nav-group-links">
+{% if "Compras" in roles or "Administrador" in roles %}{% include "components/nav_link.html" with route="compra_nueva" label="Nueva compra" aliases="" %}{% endif %}{% include "components/nav_link.html" with route="compra_lista" label="Operaciones de compra" aliases="compra_detalle documento_compra" %}</div>
+</details>
+{% endif %}
+{% if finanzas_autorizado %}
+<details class="nav-group" data-nav-group id="nav-finanzas" {% if current in "finanzas_bandeja finanzas_historial" %}open data-active-group{% endif %}>
+<summary title="Finanzas">{% include "components/icon.html" with icon="finance" %}<span class="nav-section-label">Finanzas</span>{% include "components/icon.html" with icon="chevron" icon_class="nav-chevron" %}</summary>
+<div class="nav-group-links">
+{% include "components/nav_link.html" with route="finanzas_bandeja" label="Compras pendientes" aliases="" %}{% include "components/nav_link.html" with route="finanzas_historial" label="Historial de decisiones" aliases="" %}</div>
+</details>
+{% endif %}
+{% if "Administrador" in roles %}
+<details class="nav-group" data-nav-group id="nav-administracion" {% if current in "admin_dashboard admin_usuario_lista admin_usuario_nuevo admin_usuario_editar admin_usuario_password admin_catalogo_lista admin_catalogo_nuevo admin_catalogo_editar admin_operaciones" %}open data-active-group{% endif %}>
+<summary title="Administración">{% include "components/icon.html" with icon="settings" %}<span class="nav-section-label">Administración</span>{% include "components/icon.html" with icon="chevron" icon_class="nav-chevron" %}</summary>
+<div class="nav-group-links">
+{% include "components/nav_link.html" with route="admin_dashboard" label="Dashboard administrativo" aliases="" %}{% include "components/nav_link.html" with route="admin_usuario_lista" label="Usuarios" aliases="admin_usuario_nuevo admin_usuario_editar admin_usuario_password" %}{% include "components/nav_link.html" with route="admin_catalogo_lista" label="Catálogo" aliases="admin_catalogo_nuevo admin_catalogo_editar" arg="marcas" %}{% include "components/nav_link.html" with route="admin_operaciones" label="Operaciones" aliases="" %}</div>
+</details>
+{% endif %}
+{% endwith %}</nav>
+<div class="sidebar-footer">
+<span class="sidebar-caption">KAWA S.R.L. · Gestión interna</span>
+<form action="{% url 'logout' %}" method="post">{% csrf_token %}<button class="logout-button" title="Cerrar sesión" type="submit">{% include "components/icon.html" with icon="logout" %}<span class="nav-section-label">Cerrar sesión</span>
+</button>
+</form>
+</div>
+</aside>

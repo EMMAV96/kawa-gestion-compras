@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Proveedores · Compras Kawa</title>
+  <link rel="stylesheet" href="wireframes.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="topbar"><a class="brand" href="index.html">Compras Kawa</a><nav aria-label="Navegación principal"><a href="index.html">Wireframes</a><a href="panel.html">Panel</a><a href="proveedores.html" aria-current="page">Proveedores</a><a href="solicitud-cotizacion.html">Cotizaciones</a></nav></header>
+  <main class="container" id="contenido">
+    <div class="page-heading"><h1>Proveedores</h1><a class="button" href="proveedor-formulario.html">Nuevo proveedor</a></div>
+    <div class="field"><label for="buscar-proveedor">Buscar proveedor</label><input id="buscar-proveedor" type="search" placeholder="Razón social o email"></div>
+    <div class="table-wrap">
+      <table><caption class="muted" style="text-align:left;padding:10px">Proveedores de ejemplo</caption><thead><tr><th>Razón social</th><th>Tipo</th><th>Marcas</th><th>Email</th><th>Estado</th><th>Acciones</th></tr></thead>
+        <tbody>
+          <tr><td>TecnoSur S.A.</td><td>Fijo</td><td>Samsung, Motorola</td><td>ventas@tecnosur.example</td><td><span class="tag">Activo</span></td><td><a href="proveedor-formulario.html">Editar</a></td></tr>
+          <tr><td>Distribuidora Delta</td><td>No fijo</td><td>Xiaomi</td><td>contacto@delta.example</td><td><span class="tag">Activo</span></td><td><a href="proveedor-formulario.html">Editar</a></td></tr>
+          <tr><td>Mobile Centro</td><td>Fijo</td><td>Samsung</td><td>info@mobilecentro.example</td><td><span class="tag">De baja</span></td><td><a href="proveedor-formulario.html">Ver</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</body>
+</html>

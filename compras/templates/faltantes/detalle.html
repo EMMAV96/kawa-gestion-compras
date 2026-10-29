@@ -1,0 +1,3 @@
+{% extends "base.html" %}{% block titulo %}Pedido {{ listado.pk }}{% endblock %}{% block contenido %}
+<h1>Pedido {{ listado.pk }}</h1><p>{{ listado.sucursal }} · {{ listado.usuario }} · {{ listado.fecha|date:"d/m/Y" }} · {{ listado.quincena }}</p>
+<div class="table-card scroll"><table class="tabla"><thead><tr><th>Modelo</th><th>Cantidad</th><th>Motivo</th><th>Seguimiento</th></tr></thead><tbody>{% for item in items %}<tr><td>{{ item.modelo }}</td><td>{{ item.cantidad }}</td><td>{{ item.get_motivo_display }}</td><td>{% if item.solicitado %}Incluido en solicitud{% else %}Pendiente de solicitud{% endif %}</td></tr>{% endfor %}</tbody></table></div><p><a href="{% url 'faltantes_lista' %}">Volver a pedidos</a></p>{% endblock %}

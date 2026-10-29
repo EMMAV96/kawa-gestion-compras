@@ -1,0 +1,2 @@
+{% if arg %}{% url route arg as target %}{% else %}{% url route as target %}{% endif %}
+<a class="nav-link{% if not anchor and current == route or current in aliases %} is-active{% endif %}" href="{{ target }}{% if anchor %}#{{ anchor }}{% endif %}" data-nav-link{% if not anchor and current == route or current in aliases %} aria-current="page"{% endif %}{% if anchor %} data-anchor="{{ anchor }}"{% endif %}>{{ label }}</a>

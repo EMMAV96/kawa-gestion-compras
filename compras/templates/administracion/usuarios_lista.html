@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block titulo %}Usuarios{% endblock %}
+{% block clase %}ancho{% endblock %}
+{% block contenido %}
+  <div class="page-heading heading-actions">
+    <div><p class="eyebrow">ADMINISTRACIÓN</p><h1>Usuarios</h1><p class="nota">Administrá accesos y roles del sistema.</p></div>
+    <a class="boton" href="{% url 'admin_usuario_nuevo' %}">Crear usuario</a>
+  </div>
+  {% if usuarios %}
+    <div class="table-card scroll"><table class="tabla">
+      <thead><tr><th>Usuario</th><th>Nombre</th><th>Rol</th><th>Estado</th><th>Acciones</th></tr></thead>
+      <tbody>{% for u in usuarios %}
+        <tr>
+          <td><strong>{{ u.username }}</strong><small class="cell-sub">{{ u.email|default:"Sin email" }}</small></td>
+          <td>{{ u.get_full_name|default:"—" }}</td>
+          <td>{% if u.is_superuser %}<span class="badge badge-admin">Superusuario</span>{% elif u.groups.all %}{% for grupo in u.groups.all %}<span class="badge">{{ grupo.name }}</span>{% empty %}Sin rol{% endfor %}{% else %}Sin rol{% endif %}</td>
+          <td><span class="badge {% if u.is_active %}badge-active{% else %}badge-inactive{% endif %}">{% if u.is_active %}Activo{% else %}Inactivo{% endif %}</span></td>
+          <td><div class="row-actions">
+            <a href="{% url 'admin_usuario_editar' u.pk %}">Editar</a>
+            <a href="{% url 'admin_usuario_password' u.pk %}">Restablecer contraseña</a>
+            {% if u.pk != user.pk %}<form action="{% url 'admin_usuario_estado' u.pk %}" method="post">{% csrf_token %}<button class="link-button" type="submit">{% if u.is_active %}Desactivar{% else %}Activar{% endif %}</button></form>{% endif %}
+          </div></td>
+        </tr>
+      {% endfor %}</tbody>
+    </table></div>
+  {% else %}
+    <div class="empty-state"><span class="empty-icon">{% include "components/icon.html" with icon="user" %}</span><h2>Todavía no hay usuarios</h2><p>Creá una cuenta para habilitar el acceso a la plataforma.</p><a class="boton" href="{% url 'admin_usuario_nuevo' %}">Crear usuario</a></div>
+  {% endif %}
+{% endblock %}

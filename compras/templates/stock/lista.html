@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block titulo %}Stock{% endblock %}
+{% block contenido %}
+<h1>Existencias por sucursal</h1>
+<p class="nota">Las combinaciones sin registro tienen disponibilidad cero.</p>
+<form method="get" class="form-card">{% include "components/form_fields.html" %}<button>Consultar</button></form>
+{% if "Administrador" in roles %}<p><a class="boton" href="{% url 'stock_ajuste' %}">Cargar o ajustar stock</a></p>{% endif %}
+<div class="table-card scroll"><table class="tabla"><thead><tr><th>Sucursal</th><th>Modelo</th><th>Disponible</th></tr></thead>
+<tbody>{% for fila in stock %}<tr><td>{{ fila.sucursal }}</td><td><label class="sr-only" for="{{ fila.modelo.id_for_label }}">Modelo de motocicleta</label>{{ fila.modelo }}</td><td><label class="sr-only" for="{{ fila.cantidad.id_for_label }}">Cantidad de unidades</label>{{ fila.cantidad }}</td></tr>{% empty %}<tr><td colspan="3">No hay existencias registradas para esta consulta.</td></tr>{% endfor %}</tbody></table></div>
+{% endblock %}

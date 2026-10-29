@@ -1,0 +1,19 @@
+{% extends "base.html" %}{% block titulo %}Compra {{ compra.pk }}{% endblock %}{% block clase %}ancho{% endblock %}{% block contenido %}
+<h1>Compra {{ compra.pk }}</h1><p><span class="badge" data-state="{{ compra.estado }}">{{ compra.get_estado_display }}</span> · {{ compra.get_procedimiento_display }}</p>
+<p>{{ compra.creada|date:"d/m/Y H:i" }} · Responsable: {{ compra.usuario }} · {{ compra.proveedor_nombre }} · {{ compra.proveedor_email }}</p>
+{% if compra.cotizacion_id %}<p>Oferta seleccionada: cotización {{ compra.cotizacion_id }}.</p>{% endif %}
+<div class="table-card scroll"><table class="tabla"><thead><tr><th>Modelo</th><th>Marca</th><th>Cantidad</th><th>Precio ARS</th><th>Importe ARS</th></tr></thead><tbody>{% for d in detalles %}<tr><td>{{ d.nombre_modelo }}</td><td>{{ d.nombre_marca }}</td><td>{{ d.cantidad }}</td><td>{{ d.precio_unitario|default_if_none:"Pendiente" }}</td><td>{{ d.importe|default_if_none:"Pendiente" }}</td></tr>{% endfor %}</tbody></table></div><p>Total ARS: {{ compra.total|default_if_none:"Pendiente de oferta" }}</p>
+<h2>Pedidos de origen</h2><ul>{% for o in origenes %}<li>Pedido {{ o.pedido_id }} · necesidad {{ o.item_id }} · {{ o.sucursal_nombre }} · {{ o.fecha_pedido|date:"d/m/Y" }} · {{ o.cantidad }} unidades{% if not o.vigente %} · Reserva liberada{% endif %}</li>{% endfor %}</ul>
+{% if compra.documento %}<p><a class="boton" href="{% url 'documento_compra' compra.pk %}">Ver {{ compra.documento.get_tipo_display }} {{ compra.documento.numero }}</a></p>{% endif %}
+{% if puede_preparar and not compra.cerrada %}
+{% if compra.procedimiento == 'COTIZACION' %}
+{% if compra.estado == 'EN_PREPARACION' or compra.estado == 'PENDIENTE_COTIZACIONES' %}<form method="post" action="{% url 'compra_accion' compra.pk 'evaluar' %}">{% csrf_token %}<button>Consultar respuestas e iniciar evaluación</button></form>{% endif %}
+{% if compra.estado == 'EN_EVALUACION' and not compra.cotizacion_id %}<section class="tarjeta"><h2>Seleccionar oferta completa</h2>{% if ofertas %}<form method="post" action="{% url 'compra_accion' compra.pk 'seleccionar' %}">{% csrf_token %}{% include "components/form_fields.html" with form=oferta_form %}<button>Seleccionar oferta</button></form>{% else %}<p>No hay ofertas completas y compatibles. Consulte las solicitudes y registre sus respuestas.</p>{% endif %}</section>{% endif %}
+{% endif %}
+{% if compra.estado == 'EN_PREPARACION' and compra.procedimiento == 'HABITUAL' or compra.estado == 'EN_EVALUACION' and compra.cotizacion_id %}<form method="post" action="{% url 'compra_accion' compra.pk 'documentar' %}">{% csrf_token %}<button>Generar documentación</button></form>{% endif %}
+{% if compra.estado == 'DOCUMENTACION_PREPARADA' %}<form method="post" action="{% url 'compra_accion' compra.pk 'solicitar' %}">{% csrf_token %}<button>Solicitar aprobación financiera</button></form>{% endif %}
+{% endif %}
+{{ decision_form.non_field_errors }}
+{% if puede_decidir and compra.estado == 'PENDIENTE_APROBACION' %}<section class="tarjeta"><h2>Decisión financiera</h2><form method="post" action="{% url 'compra_decidir' compra.pk %}">{% csrf_token %}{% include "components/form_fields.html" with form=decision_form %}<button>Registrar decisión</button></form></section>{% endif %}
+{% if compra.decision %}<section class="tarjeta"><h2>Decisión registrada</h2><p>{{ compra.decision.get_resultado_display }} · {{ compra.decision.usuario }} · {{ compra.decision.fecha|date:"d/m/Y H:i" }}</p><p>{{ compra.decision.motivo }}</p></section>{% endif %}
+<h2>Historial</h2><ul>{% for m in movimientos %}<li>{{ m.fecha|date:"d/m/Y H:i" }} · {{ m.usuario }} · {{ m.actividad }}</li>{% endfor %}</ul><p><a href="{% url 'compra_lista' %}">Volver a compras</a></p>{% endblock %}

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gestión de usuarios · Compras Kawa</title>
+  <link rel="stylesheet" href="wireframes.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="topbar"><a class="brand" href="index.html">Compras Kawa · Administración</a><nav aria-label="Navegación principal"><a href="index.html">Wireframes</a><a href="admin-dashboard.html">Dashboard</a><a href="usuarios.html" aria-current="page">Usuarios</a><a href="catalogo.html">Catálogo</a></nav></header>
+  <main class="container" id="contenido">
+    <div class="page-heading"><h1>Gestión de usuarios</h1><a class="button" href="#nuevo-usuario">Nuevo usuario</a></div>
+    <section class="panel" aria-label="Filtros">
+      <div class="field"><label for="buscar">Buscar usuario</label><input id="buscar" type="search" placeholder="Nombre o nombre de usuario"></div>
+      <div class="field"><label for="rol">Rol</label><select id="rol"><option>Todos los roles</option><option>Ventas</option><option>Compras</option><option>Finanzas</option><option>Administración</option></select></div>
+    </section>
+    <div class="table-wrap">
+      <table><caption class="muted" style="text-align:left;padding:10px">Usuarios registrados · datos ilustrativos</caption><thead><tr><th>Usuario</th><th>Nombre</th><th>Rol</th><th>Estado</th><th>Acciones</th></tr></thead>
+        <tbody>
+          <tr><td>ventas01</td><td>María López</td><td>Ventas</td><td><span class="tag">Activo</span></td><td><a href="#editar">Editar</a> · <a href="#contrasena">Restablecer contraseña</a> · <a href="#editar">Desactivar</a></td></tr>
+          <tr><td>compras01</td><td>Diego Pérez</td><td>Compras</td><td><span class="tag">Activo</span></td><td><a href="#editar">Editar</a> · <a href="#contrasena">Restablecer contraseña</a> · <a href="#editar">Desactivar</a></td></tr>
+          <tr><td>finanzas01</td><td>Lucía Gómez</td><td>Finanzas</td><td><span class="tag">Activo</span></td><td><a href="#editar">Editar</a> · <a href="#contrasena">Restablecer contraseña</a> · <a href="#editar">Desactivar</a></td></tr>
+          <tr><td>admin01</td><td>Juan Silva</td><td>Administrador</td><td><span class="tag">Activo</span></td><td><a href="#editar">Editar</a> · <a href="#contrasena">Restablecer contraseña</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <section class="card" id="nuevo-usuario">
+      <h2>Nuevo usuario</h2>
+      <div class="field"><label for="nombre">Nombre</label><input id="nombre" value="Ana"></div>
+      <div class="field"><label for="apellido">Apellido</label><input id="apellido" value="Torres"></div>
+      <div class="field"><label for="nombre-usuario">Nombre de usuario</label><input id="nombre-usuario" value="ventas03"></div>
+      <div class="field"><label for="rol-nuevo">Rol único</label><select id="rol-nuevo"><option>Ventas</option><option>Compras</option><option>Finanzas</option><option>Administrador</option></select></div>
+      <div class="field"><label for="clave-inicial">Contraseña inicial</label><input id="clave-inicial" type="password" value="ClaveInicial123"></div>
+      <label class="check"><input type="checkbox" checked> Usuario activo</label>
+      <button type="button">Guardar usuario</button>
+      <p class="muted">Este wireframe no guarda cambios.</p>
+    </section>
+    <section class="card" id="contrasena">
+      <h2>Restablecer contraseña</h2>
+      <div class="field"><label for="nueva-clave">Nueva contraseña</label><input id="nueva-clave" type="password" value="NuevaClave privada definida al crear la cuenta"></div>
+      <div class="field"><label for="confirmar-clave">Confirmar contraseña</label><input id="confirmar-clave" type="password" value="NuevaClave privada definida al crear la cuenta"></div>
+      <button type="button">Guardar contraseña</button>
+      <p class="muted">La acción es ilustrativa; este wireframe no modifica usuarios.</p>
+    </section>
+    <p class="notice" id="editar">La edición y el cambio de estado son acciones ilustrativas; este prototipo no guarda cambios.</p>
+  </main>
+</body>
+</html>

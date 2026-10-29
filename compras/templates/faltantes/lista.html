@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block titulo %}Pedidos de faltantes{% endblock %}{% block clase %}ancho{% endblock %}
+{% block contenido %}<h1>Pedidos de faltantes</h1><p><a href="{% url 'faltantes_consolidado' %}">Consolidar pedidos</a></p>
+{% if "Ventas" in roles or "Administrador" in roles %}<p><a class="boton" href="{% url 'faltantes_nuevo' %}">Nuevo pedido</a></p>{% endif %}
+<form method="get" class="form-card">{% include "components/form_fields.html" %}<button>Filtrar</button></form>
+<p class="nota">Pendiente significa que hay unidades todavía no incluidas en solicitudes de cotización.</p>
+<div class="table-card scroll"><table class="tabla"><thead><tr><th>Pedido</th><th>Fecha</th><th>Sucursal</th><th>Responsable</th><th>Quincena</th><th>Modelos</th></tr></thead><tbody>
+{% for l in listados %}<tr><td><a href="{% url 'faltantes_detalle' l.pk %}">{{ l.pk }}</a></td><td>{{ l.fecha|date:"d/m/Y" }}</td><td>{{ l.sucursal }}</td><td>{{ l.usuario }}</td><td>{{ l.quincena }}</td><td>{{ l.items.count }}</td></tr>{% empty %}<tr><td colspan="6">No hay pedidos para esta consulta.</td></tr>{% endfor %}</tbody></table></div>{% endblock %}

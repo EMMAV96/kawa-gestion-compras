@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nueva solicitud de cotización · Compras Kawa</title>
+  <link rel="stylesheet" href="wireframes.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="topbar"><a class="brand" href="index.html">Compras Kawa</a><nav aria-label="Navegación principal"><a href="index.html">Wireframes</a><a href="panel.html">Panel</a><a href="proveedores.html">Proveedores</a><a href="solicitud-cotizacion.html" aria-current="page">Cotizaciones</a></nav></header>
+  <main class="container" id="contenido">
+    <h1>Nueva solicitud de cotización</h1>
+    <form action="panel.html" method="get">
+      <section class="card">
+        <h2>Modelos faltantes pendientes</h2>
+        <p class="muted">Seleccioná los modelos a cotizar. Cantidades consolidadas por sucursal.</p>
+        <div class="table-wrap"><table><thead><tr><th>Seleccionar</th><th>Modelo</th><th>Marca</th><th>Cantidad total</th></tr></thead>
+          <tbody>
+            <tr><td><input id="item1" type="checkbox" checked><label class="sr-only" for="item1">Seleccionar Galaxy A55</label></td><td>Galaxy A55 128 GB</td><td>Samsung</td><td>12</td></tr>
+            <tr><td><input id="item2" type="checkbox" checked><label class="sr-only" for="item2">Seleccionar Moto G85</label></td><td>Moto G85 256 GB</td><td>Motorola</td><td>7</td></tr>
+            <tr><td><input id="item3" type="checkbox"><label class="sr-only" for="item3">Seleccionar Redmi Note 13</label></td><td>Redmi Note 13 256 GB</td><td>Xiaomi</td><td>5</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+      <div class="card-grid">
+        <fieldset class="card"><legend>Proveedores</legend>
+          <div class="check"><input id="proveedor1" type="checkbox" checked><label for="proveedor1">TecnoSur S.A.</label></div>
+          <div class="check"><input id="proveedor2" type="checkbox"><label for="proveedor2">Distribuidora Delta</label></div>
+          <div class="check"><input id="proveedor3" type="checkbox"><label for="proveedor3">Mobile Centro</label></div>
+        </fieldset>
+        <section class="card"><div class="field"><label for="medio">Medio de envío</label><select id="medio"><option>Email</option><option>Portal de proveedor</option></select></div><p class="muted">La solicitud se registra en este prototipo; no se envía a proveedores.</p></section>
+      </div>
+      <div class="actions"><a class="button secondary" href="panel.html">Cancelar</a><button type="submit">Generar solicitud</button></div>
+    </form>
+  </main>
+</body>
+</html>

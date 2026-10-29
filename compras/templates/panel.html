@@ -1,0 +1,28 @@
+{% extends "base.html" %}{% block titulo %}Panel principal{% endblock %}{% block contenido %}
+<section class="welcome-banner">
+<div>
+<p class="eyebrow">PANEL PRINCIPAL</p>
+<h1>Buen día, {{ user.first_name|default:user.username }}</h1>
+<p>Organizá tus operaciones desde un solo lugar.</p>
+<span class="role-chip">{{ rol_usuario }}</span>
+</div>
+<div class="welcome-mark" aria-hidden="true">K</div>
+</section>
+<section class="section-block">
+<div class="section-heading">
+<div>
+<h2>Tu espacio de trabajo</h2>
+<p class="nota">Accesos disponibles para tu rol.</p>
+</div>
+</div>
+<div class="quick-grid">
+{% if "Ventas" in roles or "Compras" in roles or "Finanzas" in roles or "Administrador" in roles %}{% include "components/quick_card.html" with route="stock_lista" label="Consultar stock" description="Disponibilidad de modelos por sucursal." icon="box" %}{% include "components/quick_card.html" with route="venta_lista" label="Consultar ventas" description="Operaciones registradas y sus detalles." icon="sales" %}{% include "components/quick_card.html" with route="venta_resumen" label="Resumen quincenal" description="Revisá las unidades vendidas en el período." icon="orders" %}{% endif %}
+{% if "Ventas" in roles %}{% include "components/quick_card.html" with route="venta_nueva" label="Registrar venta" description="Cargá los modelos y unidades de una venta." icon="sales" %}{% endif %}
+{% if "Ventas" in roles or "Compras" in roles or "Administrador" in roles %}{% include "components/quick_card.html" with route="faltantes_lista" label="Pedidos de faltantes" description="Consulta y seguimiento de necesidades por sucursal." icon="orders" %}{% endif %}
+{% if "Ventas" in roles or "Administrador" in roles %}{% include "components/quick_card.html" with route="faltantes_nuevo" label="Registrar faltantes" description="Informá los modelos que necesita la sucursal." icon="orders" %}{% endif %}
+{% if "Compras" in roles or "Administrador" in roles %}{% include "components/quick_card.html" with route="proveedor_lista" label="Proveedores" description="Consultá contactos y marcas que abastecen." icon="providers" %}{% include "components/quick_card.html" with route="cotizacion_lista" label="Solicitudes y cotizaciones" description="Revisá solicitudes y ofertas recibidas." icon="orders" %}{% endif %}
+{% if "Compras" in roles or "Finanzas" in roles or "Administrador" in roles %}{% include "components/quick_card.html" with route="compra_lista" label="Operaciones de compra" description="Documentación, estados e historial de operaciones." icon="cart" %}{% endif %}
+{% if finanzas_autorizado %}{% include "components/quick_card.html" with route="finanzas_bandeja" label="Aprobaciones pendientes" description="Revisá documentos y registrá tu decisión." icon="finance" %}{% include "components/quick_card.html" with route="finanzas_historial" label="Decisiones financieras" description="Consultá las aprobaciones y los rechazos registrados." icon="finance" %}{% endif %}
+{% if "Administrador" in roles %}{% include "components/quick_card.html" with route="stock_ajuste" label="Cargar o ajustar stock" description="Registrá variaciones de existencias con su motivo." icon="box" %}{% include "components/quick_card.html" with route="admin_dashboard" label="Administración" description="Usuarios, catálogos y actividad del sistema." icon="settings" %}{% endif %}
+</div>
+</section>{% endblock %}
