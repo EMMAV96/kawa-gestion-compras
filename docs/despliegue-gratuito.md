@@ -3,6 +3,19 @@
 Repositorio solicitado: https://github.com/EMMAV96/kawa-gestion-compras.git
 Carpeta raíz de Git: kawa-django (donde está manage.py).
 
+## Estado actualizado al 30/10/2026
+
+Neon ya está configurado para KAWA: TLS verificado, 23 migraciones aplicadas y
+34 tablas presentes. El usuario informa que ya creó el superusuario. No volver
+a crear la base, ejecutar migraciones o cargar datasets para este despliegue.
+Los pasos históricos de inicialización más abajo son referencias para una base
+nueva, no pasos pendientes para esta instancia.
+
+La auditoría previa a Render confirmó que build.sh y start.sh no modifican el
+esquema ni cargan datos. La exclusión .local/ en Git y Docker protege los informes
+y scripts locales de administración. Ver docs/preparacion-render.md para el
+informe y los pasos vigentes de preparación. No se realizó commit, push ni deploy.
+
 ## Alcance y gratuidad verificada
 
 Se preparó un Web Service Render Free y PostgreSQL Neon Free. No se crearon

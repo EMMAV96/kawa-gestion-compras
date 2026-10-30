@@ -82,6 +82,29 @@ print('Produccion y manifiesto estatico OK, sin conexion a PostgreSQL')
         for nombre in ["build.sh", "start.sh"]:
             self.assertNotIn(b"\r", (settings.BASE_DIR / nombre).read_bytes())
 
+    def test_despliegue_no_ejecuta_migraciones_y_excluye_archivos_privados(self):
+        for nombre in ["build.sh", "start.sh"]:
+            contenido = (settings.BASE_DIR / nombre).read_text(encoding="utf-8")
+            self.assertNotRegex(contenido, r"\bmanage\.py\s+(migrate|flush)\b")
+        dockerignore = (settings.BASE_DIR / ".dockerignore").read_text(encoding="utf-8").splitlines()
+        self.assertIn(".local", dockerignore)
+        archivos = [".env", ".env.production", ".venv/privado", "db.sqlite3",
+                    "backups/respaldo.dump", ".local/neon-migracion-resultado.json",
+                    "credentials-local.json", "clave.pem"]
+        resultado = subprocess.run(["git", "check-ignore", "--no-index", "--stdin", "-z"],
+            input=("\0".join(archivos) + "\0").encode(), cwd=settings.BASE_DIR,
+            capture_output=True, check=False)
+        self.assertEqual(resultado.returncode, 0)
+        self.assertEqual(set(resultado.stdout.decode().rstrip("\0").split("\0")), set(archivos))
+
+    def test_blueprint_gratuito_sin_recursos_adicionales(self):
+        contenido = (settings.BASE_DIR / "render.yaml").read_text(encoding="utf-8")
+        self.assertIn("plan: free", contenido)
+        self.assertIn('autoDeployTrigger: "off"', contenido)
+        self.assertIn("value: config.production", contenido)
+        for opcion in ["databases:", "disk:", "preDeployCommand:"]:
+            self.assertNotIn(opcion, contenido)
+
 
 @override_settings(PASSWORD_HASHERS=["django.contrib.auth.hashers.MD5PasswordHasher"])
 class DemoPublicaSeguridadTest(TestCase):
